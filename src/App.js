@@ -12,6 +12,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isUpdateAvatarPopupOpen, setIsUpdateAvatarPopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(false);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -25,10 +26,15 @@ function App() {
     setIsAddCardPopupOpen(!isAddCardPopupOpen);
   }
 
+  function handleCardClick() {
+    setSelectedCard(!selectedCard);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsUpdateAvatarPopupOpen(false);
     setIsAddCardPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -36,7 +42,7 @@ function App() {
     <div className="page__container">
           <Header />
 
-          <Main onEditProfile={handleEditProfileClick} onUpdateAvatar={handleUpdateAvatarClick} onAddCard={handleAddCardClick} />
+          <Main onEditProfile={handleEditProfileClick} onUpdateAvatar={handleUpdateAvatarClick} onAddCard={handleAddCardClick} onCardClick={handleCardClick} />
             
           <Footer />
         </div>
@@ -60,14 +66,14 @@ function App() {
                 <span className="popup__form-error" id="link-error"></span>
         </PopupWithForm>
 
-        <PopupWithImage />
+        <PopupWithImage card={selectedCard} onClose={closeAllPopups}/>
 
         <PopupWithForm name="delete-card" title="Вы уверены?">
                 <h2 className="popup__heading popup__heading_type_small-popup">Вы уверены?</h2>
                 <button type="submit" className="popup__save-button popup__save-button_type_small-popup">Да</button>
         </PopupWithForm>
 
-        <template className="cards__template">
+        {/* <template className="cards__template">
           <li className="cards__item">
             <button className="cards__delete-button" type="button" aria-label="delete"></button>
             <img className="cards__image" alt="Фотография места" />
@@ -76,7 +82,7 @@ function App() {
                   <div className="cards__like-container"><button className="cards__like-button" type="button" aria-label="like"></button><p className="cards__like-counter">0</p></div>
             </div>
           </li>
-        </template>
+        </template> */}
 </div>
 );
 }

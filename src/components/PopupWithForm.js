@@ -3,7 +3,7 @@ import React from 'react';
 function PopupWithForm(props) {
 
     return (
-        <div className={props.isOpen ? `popup popup_type_${props.name} popup_opened` : `popup popup_type_${props.name}`}>
+        <div className={props.card ? `popup popup_type_${props.name} popup_opened` : `popup popup_type_${props.name}`}>
             <div className="popup__container">
             <button className="popup__close-button" type="button" aria-label="close" onClick={props.onClose}></button>
             <form className={`popup__form popup__form_type_${props.name}`} method="POST" name={`${props.name}`} noValidate>
