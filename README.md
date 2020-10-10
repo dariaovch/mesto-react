@@ -1,3 +1,27 @@
+# Frontend проекта Место на React
+
+## Технологический стек
+
+* HTML;
+* CSS;
+* JavaScript;
+* React;
+
+
+## Реализация проекта
+
+HTML-разметка и CSS-стили проекта Место портированы на Реакт. Контент страницы отрисовывается с помощью запроса к API. Открытие и закрытие попапов управляется стейт-переменными.
+
+## Инструкция по развертыванию проекта
+
+* Клонирование репозитория: `git clone https://github.com/dariaovch/mesto-react.git`
+* Установка зависимостей: `npm install`
+* Запуск develop-сборки: `npm start`
+* Запуск production-сборки: `npm run build`
+* Выложить проект на сервер: `npm run deploy`
+
+***
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

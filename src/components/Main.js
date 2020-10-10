@@ -14,8 +14,6 @@ function Main(props) {
            .then((argument) => {
               const [ userData, cardsData ] = argument;
 
-              console.log(cardsData)
-
               setUserName(userData.name);
               setUserDescription(userData.about);
               setUserAvatar(userData.avatar);
@@ -44,7 +42,7 @@ function Main(props) {
 
                 <section className="cards">
                     <ul className="cards__grid">
-                    {cards.map((item) => <Card key={item._id} link={item.link} name={item.name} likes={item.likes} onCardClick={props.handleCardClick} />)}
+                    {cards.map((item) => <Card item={item} key={item._id} onCardClick={props.onCardClick} />)}
                     </ul>
                 </section>
             </main>
