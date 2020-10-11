@@ -67,10 +67,8 @@ function App() {
 
         <PopupWithImage card={selectedCard} onClose={closeAllPopups}/>
 
-        <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да">
-                <h2 className="popup__heading popup__heading_type_small-popup">Вы уверены?</h2>
-        </PopupWithForm>
-
+        <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да" />
+      
 </div>
 );
 }
