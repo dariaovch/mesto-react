@@ -1,5 +1,7 @@
 # Frontend проекта Место на React
 
+Ссылка: https://dariaovch.github.io/mesto-react/
+
 ## Технологический стек
 
 * HTML;
