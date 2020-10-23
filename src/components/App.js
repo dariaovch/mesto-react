@@ -1,15 +1,15 @@
 import React from 'react';
-import './index.css';
-import Header from './components/Header.js';
-import Main from './components/Main.js';
-import Footer from './components/Footer.js';
-import EditProfilePopup from './components/EditProfilePopup.js';
-import UpdateAvatarPopup from './components/UpdateAvatarPopup.js';
-import AddCardPopup from './components/AddCardPopup.js';
+import '../index.css';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import EditProfilePopup from './EditProfilePopup.js';
+import UpdateAvatarPopup from './UpdateAvatarPopup.js';
+import AddCardPopup from './AddCardPopup.js';
 // import DeleteCardPopup from './components/DeleteCardPopup.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import { CurrentUserContext } from './contexts/CurrentUserContext.js';
-import { api } from './utils/Api.js';
+import PopupWithImage from './PopupWithImage.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { api } from '../utils/Api.js';
 
 function App() {
 
@@ -24,7 +24,11 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isUpdateAvatarPopupOpen, setIsUpdateAvatarPopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({
+    name: '',
+    link: '#'
+  });
 
   //Получаем из API данные пользователя и карточек
   React.useEffect(() => {
@@ -44,18 +48,19 @@ function App() {
   //Логика открытия и закрытия попапов
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleUpdateAvatarClick() {
-    setIsUpdateAvatarPopupOpen(!isUpdateAvatarPopupOpen);
+    setIsUpdateAvatarPopupOpen(true);
   }
 
   function handleAddCardClick() {
-    setIsAddCardPopupOpen(!isAddCardPopupOpen);
+    setIsAddCardPopupOpen(true);
   }
 
   function handleCardClick(item) {
+    setIsImagePopupOpen(true);
     setSelectedCard(item);
   }
 
@@ -63,7 +68,11 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsUpdateAvatarPopupOpen(false);
     setIsAddCardPopupOpen(false);
-    setSelectedCard(false);
+    setIsImagePopupOpen(false);
+    setSelectedCard({
+      name: '',
+      link: '#'
+    });
   }
 
   //Логика получения данных из форм и их отправка на сервер с дальнейшим обновлением данных на странице
@@ -74,6 +83,9 @@ function App() {
          setCurrentUser(data);
          closeAllPopups();
        })
+       .catch((err) => {
+        console.log(err);
+       });
   }
 
   function handleUpdateAvatar(formData) {
@@ -82,6 +94,9 @@ function App() {
          setCurrentUser(data);
          closeAllPopups();
        })
+       .catch((err) => {
+        console.log(err);
+       });
   }
 
   function handleAddCardSubmit(formData) {
@@ -90,6 +105,9 @@ function App() {
          setCards([newCard, ...cards])
          closeAllPopups();
        })
+       .catch((err) => {
+        console.log(err);
+       });
   }
 
 
@@ -101,7 +119,10 @@ function App() {
     api.changeLikeCardStatus(item._id, !isLiked).then((newCard) => {
       const newCards = cards.map((c) => c._id === item._id ? newCard : c);
       setCards(newCards);
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+    });;
   }
 
   // Логика удаления карточки
@@ -110,7 +131,10 @@ function App() {
     api.deleteCard(item._id).then(() => {
      const newCards = cards.filter((c) => c._id !== item._id);
      setCards(newCards);
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+    });;
   }
 
   return (
@@ -130,7 +154,7 @@ function App() {
 
         <AddCardPopup isOpen={isAddCardPopupOpen} onClose={closeAllPopups} onAddCard={handleAddCardSubmit} />
 
-        <PopupWithImage card={selectedCard} onClose={closeAllPopups} />
+        <PopupWithImage isOpen={isImagePopupOpen} card={selectedCard} onClose={closeAllPopups} />
 
         {/* <DeleteCardPopup isOpen={isDeleteCardPopupOpen} onCardDelete={handleCardDelete} onClose={closeAllPopups} /> */}
       

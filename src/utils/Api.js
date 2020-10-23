@@ -5,7 +5,7 @@ class Api {
     }
 
     getData(name) {
-        return fetch(`https://mesto.nomoreparties.co/v1/cohort-15/${name}`, {
+        return fetch(`${this._url}${name}`, {
             headers: this._headers,
         });
     }
