@@ -3,8 +3,10 @@ import PopupWithForm from './PopupWithForm.js';
 
 export default function UpdateAvatarPopup(props) {
 
+    //Создаем реф для инпута
     const inputRef = React.useRef();
 
+    //Сабмит формы
     function handleSubmit(evt) {
         evt.preventDefault();
 

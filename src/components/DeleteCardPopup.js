@@ -1,3 +1,5 @@
+//Заготовка для попапа "Вы уверены?"
+
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
@@ -5,7 +7,7 @@ export default function DeleteCardPopup(props) {
 
     function handleSubmit(evt, item) {
         evt.preventDefault();
-        
+
         props.onCardDelete(item)
     }
     return (

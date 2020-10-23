@@ -4,9 +4,11 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function EditProfilePopup(props) {
     
+    //Стейт-переменные для данных формы
     const [name, setName] = React.useState('');
     const [description, setDescription] = React.useState('');
 
+    //Получение данных из инпутов
     function handleNameChange(evt) {
         setName(evt.target.value)
     }
@@ -15,13 +17,16 @@ export default function EditProfilePopup(props) {
         setDescription(evt.target.value)
     }
 
+    //Подписка на контекст текущего пользователя
     const currentUser = React.useContext(CurrentUserContext);
     
+    //Обновление данных текущего пользователя
     React.useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
     }, [currentUser]);
 
+    //Сабмит формы
     function handleSubmit(evt) {
         evt.preventDefault();
         

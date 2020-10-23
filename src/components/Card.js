@@ -3,6 +3,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card(props) {
 
+  //Подписка на контекст текущего пользователя и получение ID карточки для манипуляций с ней
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwn = props.item.owner._id === currentUser._id;
@@ -17,6 +18,7 @@ function Card(props) {
     `${isLiked ? 'cards__like-button cards__like-button_active' : 'cards__like-button'}`
   );
 
+    //Функции для обработки манипуляций с карточкой: клик, лайк, удаление
     function handleClick() {
         props.onCardClick(props.item)
       }  

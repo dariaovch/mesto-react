@@ -4,6 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function Main(props) {
 
+    //Подписка на контекст текущего пользователя
     const currentUser = React.useContext(CurrentUserContext);
 
     return (

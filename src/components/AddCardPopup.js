@@ -3,9 +3,11 @@ import PopupWithForm from './PopupWithForm.js';
 
 export default function AddCardPopup(props) {
 
+    //Создаем рефы для инпутов
     const nameRef = React.useRef();
     const linkRef = React.useRef();
 
+    //Логика сбора данных из формы и сабмита
     function handleSubmit(evt) {
         evt.preventDefault();
         

@@ -13,6 +13,8 @@ import { api } from './utils/Api.js';
 
 function App() {
 
+  //Стейт-переменные конктекста текущего пользователя, карточек и открытия попапов
+
   const [currentUser, setCurrentUser] = React.useState({
     name: '',
     about: '',
@@ -24,6 +26,7 @@ function App() {
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
 
+  //Получаем из API данные пользователя и карточек
   React.useEffect(() => {
     api.getAllPageData()
        .then((argument) => {
@@ -35,7 +38,10 @@ function App() {
        .catch((err) => {
           console.log(err);
        });
-}, []);
+  }, []);
+
+
+  //Логика открытия и закрытия попапов
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -53,13 +59,14 @@ function App() {
     setSelectedCard(item);
   }
 
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsUpdateAvatarPopupOpen(false);
     setIsAddCardPopupOpen(false);
     setSelectedCard(false);
   }
+
+  //Логика получения данных из форм и их отправка на сервер с дальнейшим обновлением данных на странице
 
   function handleUpdateUser(formData) {
     api.saveEditedInfo(formData)
@@ -86,28 +93,30 @@ function App() {
   }
 
 
+  // Логика постановки и снятия лайков через запрос к API
   function handleCardLike(item) {
-
+    
     const isLiked = item.likes.some(i => i._id === currentUser._id);
     
     api.changeLikeCardStatus(item._id, !isLiked).then((newCard) => {
       const newCards = cards.map((c) => c._id === item._id ? newCard : c);
       setCards(newCards);
     });
-}
+  }
 
+  // Логика удаления карточки
   function handleCardDelete(item) {
    
     api.deleteCard(item._id).then(() => {
      const newCards = cards.filter((c) => c._id !== item._id);
      setCards(newCards);
     });
-}
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
-    <div className="page__container">
+      <div className="page">
+        <div className="page__container">
           <Header />
 
           <Main onEditProfile={handleEditProfileClick} onUpdateAvatar={handleUpdateAvatarClick} onAddCard={handleAddCardClick} onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
@@ -125,9 +134,9 @@ function App() {
 
         {/* <DeleteCardPopup isOpen={isDeleteCardPopupOpen} onCardDelete={handleCardDelete} onClose={closeAllPopups} /> */}
       
-</div>
-</CurrentUserContext.Provider>
-);
+      </div>
+    </CurrentUserContext.Provider>
+  );
 }
 
 export default App;
