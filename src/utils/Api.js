@@ -58,18 +58,18 @@ class Api {
        
     }
 
-    putLike(cardId) {
-        return fetch(`${this._url}cards/likes/${cardId}`, {
-            method: "PUT",
-            headers: this._headers,
-        }).then(res => this._getResponseData(res));
-    }
-
-    deleteLike(cardId) {
-        return fetch(`${this._url}cards/likes/${cardId}`, {
-            method: "DELETE",
-            headers:  this._headers
-        }).then(res => this._getResponseData(res));
+    changeLikeCardStatus(cardId, isLiked) {
+        if(isLiked){
+            return fetch(`${this._url}cards/likes/${cardId}`, {
+                method: "PUT",
+                headers: this._headers,
+            }).then(res => this._getResponseData(res));
+        } else {
+            return fetch(`${this._url}cards/likes/${cardId}`, {
+                method: "DELETE",
+                headers:  this._headers
+            }).then(res => this._getResponseData(res));
+        }
     }
 
     deleteCard(cardId) {
@@ -85,7 +85,7 @@ class Api {
             method: "PATCH",
             headers:  this._headers,
             body: JSON.stringify({
-                avatar: formData.url,
+                avatar: formData.avatar,
               })
         }).then(res => this._getResponseData(res));
     }
